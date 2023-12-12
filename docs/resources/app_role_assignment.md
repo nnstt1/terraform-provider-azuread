@@ -22,7 +22,7 @@ When authenticated with a user principal, this resource requires one of the foll
 data "azuread_application_published_app_ids" "well_known" {}
 
 resource "azuread_service_principal" "msgraph" {
-  application_id = data.azuread_application_published_app_ids.well_known.result.MicrosoftGraph
+  client_id = data.azuread_application_published_app_ids.well_known.result.MicrosoftGraph
   use_existing   = true
 }
 
@@ -45,7 +45,7 @@ resource "azuread_application" "example" {
 }
 
 resource "azuread_service_principal" "example" {
-  application_id = azuread_application.example.application_id
+  client_id = azuread_application.example.client_id
 }
 
 resource "azuread_app_role_assignment" "example" {
@@ -72,14 +72,14 @@ resource "azuread_application" "internal" {
 }
 
 resource "azuread_service_principal" "internal" {
-  application_id = azuread_application.internal.application_id
+  client_id = azuread_application.internal.client_id
 }
 
 resource "azuread_application" "example" {
   display_name = "example"
 
   required_resource_access {
-    resource_app_id = azuread_application.internal.application_id
+    resource_app_id = azuread_application.internal.client_id
 
     resource_access {
       id   = azuread_service_principal.internal.app_role_ids["Query.All"]
@@ -89,7 +89,7 @@ resource "azuread_application" "example" {
 }
 
 resource "azuread_service_principal" "example" {
-  application_id = azuread_application.example.application_id
+  client_id = azuread_application.example.client_id
 }
 
 resource "azuread_app_role_assignment" "example" {
@@ -120,7 +120,7 @@ resource "azuread_application" "internal" {
 }
 
 resource "azuread_service_principal" "internal" {
-  application_id = azuread_application.internal.application_id
+  client_id = azuread_application.internal.client_id
 }
 
 resource "azuread_group" "example" {
@@ -155,7 +155,7 @@ resource "azuread_application" "internal" {
 }
 
 resource "azuread_service_principal" "internal" {
-  application_id = azuread_application.internal.application_id
+  client_id = azuread_application.internal.client_id
 }
 
 resource "azuread_group" "example" {
