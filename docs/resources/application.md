@@ -39,8 +39,8 @@ resource "azuread_application" "example" {
     requested_access_token_version = 2
 
     known_client_applications = [
-      azuread_application.known1.application_id,
-      azuread_application.known2.application_id,
+      azuread_application.known1.client_id,
+      azuread_application.known2.client_id,
     ]
 
     oauth2_permission_scope {
@@ -157,7 +157,7 @@ resource "azuread_application" "example" {
 }
 
 resource "azuread_service_principal" "example" {
-  application_id = azuread_application.example.application_id
+  client_id = azuread_application.example.client_id
   use_existing   = true
 }
 ```
