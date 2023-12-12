@@ -157,7 +157,7 @@ resource "azuread_application" "example" {
 }
 
 resource "azuread_service_principal" "example" {
-  client_id = azuread_application.example.client_id
+  client_id      = azuread_application.example.client_id
   use_existing   = true
 }
 ```
